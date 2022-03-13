@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+    <head>
+                <meta charset="8">
+                <meta http-equiv="X-UA-Compatible" content="IE=edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1">
+                <link rel="stylesheet"  href="index.css">
+                <title>Sign up</title>
+                
+    </head>
+   <body>
+    <div class="main">
+        
+        <div class="bx" id="bz">
+            <h2>SignUp</h2>
+            <div class="form">
+                <label for="username">User Name</label>
+                <input type="text" placeholder="Enter your Good Name"   class="bh" id="username">
+            </div>
+            <div class="form">
+                <label for="email">Email</label>
+                <input type="text" placeholder="Enter your Email id" required name="Email" class="bh" id="email">
+            </div>
+            <div class="form">
+                <label for="password">Password</label>
+                <input type="password" placeholder="Enter your Password" type="password" required name="password" class="bh" id="password">
+            </div>
+
+            <div class="form">
+                <label for="profession">Choose one from the option</label>
+                <select id="profession" class="bh" >
+                    <option value=""></option>
+                    <option value="">Professional</option>
+                    <option value="">Student</option>
+                    <option value="">Others</option>
+                </select>
+            </div>
+
+                <div>
+                    <button class="btn" id="signUp" type="submit"> Submit </button>
+                   
+                </div>
+        </div>
+    </div>
+    <footer class="footer">
+        <div class="connect"> 
+            <p class="conabout" style="color: aqua;">Feel free to get in touch with me..</p>
+            <div class="conimg">
+
+            <a href="https://in.linkedin.com/in/sathya-sivam-loganathan-7a3958228?trk=public_profile_samename-profile" target="blank"><img src="images/linkedin.png"></a>
+            <a href="https://mail.google.com/mail/u/0/#advanced-search/query=in%3Asent&isrefinement=true?compose=CllgCHrgDRqcnBfHWQKwPRlrBGjMTfpjMQWTktbZWKTbvTzjDWqcjWMXgFmqCxtLqFNXBhbqTvB"target="blank"><img src="images/gmail.png">
+            <a href="https://github.com/sathyasivamloganathan"target="blank"><span style="background: white;"><img src="images/github2.png"></a></span>
+            <a href="https://twitter.com/SathyaSivam2004"target="blank"><img src="images/twitter.png"></a> 
+            <a href="https://www.instagram.com/sathya_sivam_1/?hl=en"target="blank"><img src="images/instagram.png"></a> 
+           
+            </div>
+            <p class="copyright" style="color: aqua;">&#169;&nbsp;2022 Sathya Sivam. | Hosted With <span style="color: orange;">Github</span></p>
+    </div>
+        </div>
+    </footer>
+
+
+   </body>
+
+
+   <script type="module">
+    // Import the functions you need from the SDKs you need
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.8/firebase-app.js";
+    import { getDatabase, set, ref } from "https://www.gstatic.com/firebasejs/9.6.8/firebase-database.js";
+    import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.6.8/firebase-auth.js";
+    
+    // TODO: Add SDKs for Firebase products that you want to use
+    // https://firebase.google.com/docs/web/setup#available-libraries
+  
+    // Your web app's Firebase configuration
+    const firebaseConfig = {
+      apiKey: "AIzaSyAtLYqecS9XWoy40k-PwEumj-nBZ4ihKbM",
+      authDomain: "authentication-bb8f3.firebaseapp.com",
+      databaseURL: "https://authentication-bb8f3-default-rtdb.firebaseio.com",
+      projectId: "authentication-bb8f3",
+      storageBucket: "authentication-bb8f3.appspot.com",
+      messagingSenderId: "1038039495584",
+      appId: "1:1038039495584:web:64b9f5c5f43b6e0b26aac5"
+    };
+  
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const database = getDatabase(app);
+    const auth = getAuth();
+
+    signUp.addEventListener('click',(e)=>{
+
+        var email = document.getElementById('email').value
+        var password = document.getElementById('password').value
+        var username = document.getElementById('username').value
+        var profession = document.getElementById('profession').value
+            createUserWithEmailAndPassword(auth, email, password,profession)
+    .then((userCredential) => {
+        // Signed in 
+        const user = userCredential.user;
+
+        set(ref(database, 'user' + user.uid),{
+            username: username,
+            email:email,
+            password:password,
+            profession:profession
+        })
+        alert('User Created !')
+        // ...
+    })
+    .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+
+        alert(errorMessage);
+        // ..
+  });
+        
+    })
+  </script>
+  
+  
+
+</html> 
